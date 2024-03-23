@@ -2,7 +2,10 @@
   <div>
     <q-list bordered separator>
       <q-item v-for="vol in volumes" :key="vol">
-        <q-item-section>{{ vol }}</q-item-section>
+        <q-item-section avatar>
+          <q-icon color="primary" name="import_contacts" />
+        </q-item-section>
+        <q-item-section>Volume {{ vol }}</q-item-section>
         <q-item-section side>
           <q-btn-dropdown dense outline color="primary" icon="edit">
             <q-list>

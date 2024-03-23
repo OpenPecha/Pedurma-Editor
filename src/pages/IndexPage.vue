@@ -7,16 +7,17 @@
         active-color="primary"
         indicator-color="primary"
         align="justify"
+        inline-label
       >
-        <q-tab name="kangyur" label="བཀའ་འགྱུར།" />
-        <q-tab name="tengyur" label="བསྟན་འགྱུར།" />
+        <q-tab name="kangyur" label="བཀའ་འགྱུར།" icon="library_books" />
+        <q-tab name="tengyur" label="བསྟན་འགྱུར།" icon="library_books" />
       </q-tabs>
 
       <q-tab-panels
         v-model="tab"
         animated
         class="overflow-auto"
-        style="height: 70vh"
+        style="height: 72vh"
       >
         <q-tab-panel name="kangyur">
           <VolumeList :pecha="tab" />
