@@ -2,7 +2,12 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title class="text-center">Pedurma Editors</q-toolbar-title>
+        <q-toolbar-title class="text-center">
+          <q-avatar>
+            <img src="https://openpecha.org/logo.png" />
+          </q-avatar>
+          Pedurma Editor
+        </q-toolbar-title>
       </q-toolbar>
     </q-header>
 
