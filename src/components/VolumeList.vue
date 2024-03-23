@@ -33,10 +33,11 @@ export default {
   name: "VolumeList",
   props: ["pecha"],
 
-  data() {
-    return {
-      volumes: Array.from({ length: 100 }, (_, i) => i + 1),
-    };
+  computed: {
+    volumes() {
+      let volume_count = this.pecha == "kangyur" ? 108 : 214;
+      return Array.from({ length: volume_count }, (_, i) => i + 1);
+    },
   },
 };
 </script>
