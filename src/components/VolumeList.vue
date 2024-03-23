@@ -1,0 +1,39 @@
+<template>
+  <div>
+    <q-list bordered separator>
+      <q-item v-for="vol in volumes" :key="vol">
+        <q-item-section>{{ vol }}</q-item-section>
+        <q-item-section side>
+          <q-btn-dropdown dense outline color="primary" icon="edit">
+            <q-list>
+              <q-item clickable v-close-popup>
+                <q-item-section>
+                  <q-item-label>Text</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item clickable v-close-popup>
+                <q-item-section>
+                  <q-item-label>བསྡུར་མཆན་</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+        </q-item-section>
+      </q-item>
+    </q-list>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "VolumeList",
+  props: ["pecha"],
+
+  data() {
+    return {
+      volumes: Array.from({ length: 100 }, (_, i) => i + 1),
+    };
+  },
+};
+</script>
