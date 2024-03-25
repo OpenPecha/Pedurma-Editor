@@ -2,6 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
+        <q-btn v-show="!isIndexPage" flat rounded icon="arrow_back" to="/" />
         <q-toolbar-title class="text-center">
           <q-avatar>
             <img src="https://openpecha.org/logo.png" />
@@ -17,4 +18,12 @@
   </q-layout>
 </template>
 
-<script></script>
+<script>
+export default {
+  computed: {
+    isIndexPage() {
+      return this.$router.currentRoute.value.path === "/";
+    },
+  },
+};
+</script>
