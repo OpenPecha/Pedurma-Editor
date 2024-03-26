@@ -5,7 +5,7 @@
         <ImageViewer
           class="col"
           :src="currentImageUrl"
-          :resize="false"
+          :resize="true"
           alt="page image"
         />
       </q-card>
@@ -40,7 +40,7 @@ export default {
 
   computed: {
     currentImageUrl() {
-      return "https://learntibetanlanguage.org/wp-content/uploads/2023/02/Screenshot-from-2023-02-02-12-32-45.png";
+      return "https://iiif.bdrc.io/bdr:I1PD95846::I1PD958461520.jpg/full/max/0/default.jpg";
     },
 
     currentPageContent: {
