@@ -11,13 +11,13 @@
         <q-item-section side>
           <q-btn-dropdown dense outline color="primary" icon="edit">
             <q-list dense>
-              <q-item disable v-close-popup :to="`/${pecha}/text/${text.id}`">
+              <q-item disable v-close-popup :to="`/${pecha}/${text.id}/text`">
                 <q-item-section>
                   <q-item-label>Text</q-item-label>
                 </q-item-section>
               </q-item>
 
-              <q-item clickable v-close-popup :to="`/${pecha}/note/${text.id}`">
+              <q-item clickable v-close-popup :to="`/${pecha}/${text.id}/note`">
                 <q-item-section>
                   <q-item-label>བསྡུར་མཆན་</q-item-label>
                 </q-item-section>
