@@ -46,15 +46,5 @@ export default {
       tab: "kangyur",
     };
   },
-
-  methods: {
-    open(path) {
-      if (path.match("https")) {
-        openURL(path);
-      } else {
-        this.$router.push(path);
-      }
-    },
-  },
 };
 </script>

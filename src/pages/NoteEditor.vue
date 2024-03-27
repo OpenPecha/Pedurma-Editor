@@ -1,10 +1,10 @@
 <template>
-  <q-page padding class="row q-gutter-md">
+  <q-page v-if="currentPage" padding class="row q-gutter-md">
     <div class="col">
       <q-card id="imageCard">
         <ImageViewer
           class="col"
-          :src="currentImageUrl"
+          :src="currentPage.image_url"
           :resize="true"
           alt="page image"
         />
@@ -13,7 +13,12 @@
 
     <q-card class="col" style="height: 88vh">
       <div class="row justify-center bg-grey-1" id="paginationContainer">
-        <q-pagination v-model="currentPageNum" min="1" max="10" input />
+        <q-pagination
+          v-model="currentPageNum"
+          min="1"
+          :max="pages.length"
+          input
+        />
       </div>
 
       <textarea name="textarea" v-model="currentPageContent"></textarea>
@@ -33,24 +38,37 @@ export default {
 
   data() {
     return {
-      pages: ["", ""],
+      pages: null,
       currentPageNum: 1,
+      currentPage: null,
     };
   },
 
   computed: {
-    currentImageUrl() {
-      return "https://iiif.bdrc.io/bdr:I1PD95846::I1PD958461520.jpg/full/max/0/default.jpg";
-    },
-
     currentPageContent: {
       get: function () {
-        return "page content";
+        return this.currentPage.content;
       },
       set: function (newValue) {
-        this.pages[0] = newValue;
+        this.currentPage.content = newValue;
       },
     },
+  },
+
+  methods: {
+    async fetchPage(page_id) {
+      const { pecha, text } = this.$route.params;
+      const response = await this.$api.get(`/${pecha}/${text}/${page_id}`);
+      this.currentPage = await response.data;
+    },
+  },
+
+  async created() {
+    const { pecha, text } = this.$route.params;
+    const response = await this.$api.get(`/${pecha}/${text}/pages`);
+    this.pages = await response.data;
+
+    this.fetchPage(this.pages[0]);
   },
 };
 </script>
