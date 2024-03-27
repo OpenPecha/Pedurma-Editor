@@ -1,21 +1,23 @@
 <template>
   <div>
-    <q-list bordered separator>
-      <q-item v-for="vol in volumes" :key="vol">
+    <q-list separator>
+      <q-item v-for="text in texts" :key="text.id">
         <q-item-section avatar>
-          <q-icon color="primary" name="import_contacts" />
+          <q-badge color="secondary">
+            {{ text.id }}
+          </q-badge>
         </q-item-section>
-        <q-item-section>Volume {{ vol }}</q-item-section>
+        <q-item-section> {{ text.title }}</q-item-section>
         <q-item-section side>
           <q-btn-dropdown dense outline color="primary" icon="edit">
-            <q-list>
-              <q-item clickable v-close-popup :to="`/${pecha}/text/${vol}`">
+            <q-list dense>
+              <q-item disable v-close-popup :to="`/${pecha}/text/${text.id}`">
                 <q-item-section>
                   <q-item-label>Text</q-item-label>
                 </q-item-section>
               </q-item>
 
-              <q-item clickable v-close-popup :to="`/${pecha}/note/${vol}`">
+              <q-item clickable v-close-popup :to="`/${pecha}/note/${text.id}`">
                 <q-item-section>
                   <q-item-label>བསྡུར་མཆན་</q-item-label>
                 </q-item-section>
@@ -33,11 +35,15 @@ export default {
   name: "VolumeList",
   props: ["pecha"],
 
-  computed: {
-    volumes() {
-      let volume_count = this.pecha == "kangyur" ? 108 : 214;
-      return Array.from({ length: volume_count }, (_, i) => i + 1);
-    },
+  data() {
+    return {
+      texts: [],
+    };
+  },
+
+  async created() {
+    const response = await this.$api.get(`/${this.pecha}/texts`);
+    this.texts = await response.data;
   },
 };
 </script>

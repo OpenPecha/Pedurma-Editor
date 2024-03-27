@@ -9,8 +9,8 @@
         align="justify"
         inline-label
       >
-        <q-tab name="kangyur" label="བཀའ་འགྱུར།" icon="library_books" />
-        <q-tab name="tengyur" label="བསྟན་འགྱུར།" icon="library_books" />
+        <q-tab name="kangyur" label="བཀའ་འགྱུར།" icon="book" />
+        <q-tab name="tengyur" label="བསྟན་འགྱུར།" icon="book" />
       </q-tabs>
 
       <q-tab-panels
@@ -20,11 +20,11 @@
         style="height: 72vh"
       >
         <q-tab-panel name="kangyur">
-          <VolumeList :pecha="tab" />
+          <TextList :pecha="tab" />
         </q-tab-panel>
 
         <q-tab-panel name="tengyur">
-          <VolumeList :pecha="tab" />
+          <TextList :pecha="tab" />
         </q-tab-panel>
       </q-tab-panels>
     </q-card>
@@ -32,13 +32,13 @@
 </template>
 
 <script>
-import VolumeList from "components/VolumeList.vue";
+import TextList from "components/TextList.vue";
 
 export default {
   name: "IndexPage",
 
   components: {
-    VolumeList,
+    TextList,
   },
 
   data() {
