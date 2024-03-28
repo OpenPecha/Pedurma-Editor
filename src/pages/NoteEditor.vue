@@ -44,6 +44,12 @@ export default {
     };
   },
 
+  watch: {
+    currentPageNum() {
+      this.fetchPage(this.pages[this.currentPageNum - 1]);
+    },
+  },
+
   computed: {
     currentPageContent: {
       get: function () {
