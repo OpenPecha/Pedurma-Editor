@@ -32,6 +32,7 @@
 
 <script>
 import { debounce } from "quasar";
+import { LocalStorage } from "quasar";
 import ImageViewer from "components/ImageViewer.vue";
 
 export default {
@@ -51,12 +52,20 @@ export default {
   },
 
   watch: {
-    currentPageNum() {
-      this.fetchPage(this.pages[this.currentPageNum - 1]);
+    async currentPageNum() {
+      await this.fetchPage(this.pages[this.currentPageNum - 1]);
+      this.saveLastViewedPageNum();
     },
 
     currentPageContent() {
       this.debouncedSaveCurrentPage();
+    },
+  },
+
+  computed: {
+    lastViewedPageNumKey() {
+      const { pecha, text } = this.$route.params;
+      return `PE:${pecha}/${text}/lastViewedPageNum`;
     },
   },
 
@@ -92,6 +101,13 @@ export default {
         console.error(error);
       }
     },
+    saveLastViewedPageNum() {
+      this.$q.localStorage.set(this.lastViewedPageNumKey, this.currentPageNum);
+    },
+
+    loadLastViewedPageNum() {
+      return this.$q.localStorage.getItem(this.lastViewedPageNumKey);
+    },
   },
 
   async created() {
@@ -99,7 +115,12 @@ export default {
     const response = await this.$api.get(`/${pecha}/${text}/pages`);
     this.pages = await response.data;
 
-    this.fetchPage(this.pages[0]);
+    const lastViewedPageNum = this.loadLastViewedPageNum();
+    if (lastViewedPageNum) {
+      this.currentPageNum = lastViewedPageNum;
+    }
+
+    this.fetchPage(this.pages[this.currentPageNum - 1]);
   },
 };
 </script>
