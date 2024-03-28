@@ -17,9 +17,7 @@
 
     <q-card class="col" style="height: 88vh">
       <div class="row justify-center bg-grey-1" id="paginationContainer">
-        <q-badge floating color="secondary">
-          {{ textId }}
-        </q-badge>
+        <SaveStatus :status="saveStatus" />
         <q-pagination
           v-model="currentPageNum"
           min="1"
@@ -36,12 +34,14 @@
 <script>
 import { debounce } from "quasar";
 import ImageViewer from "components/ImageViewer.vue";
+import SaveStatus from "components/SaveStatus.vue";
 
 export default {
   name: "NoteEditor",
 
   components: {
     ImageViewer,
+    SaveStatus,
   },
 
   data() {
@@ -50,6 +50,7 @@ export default {
       currentPageNum: 1,
       currentPageContent: null,
       currentPageImageUrl: null,
+      saveStatus: "saved",
     };
   },
 
@@ -60,6 +61,7 @@ export default {
     },
 
     currentPageContent() {
+      this.saveStatus = "saving";
       this.debouncedSaveCurrentPage();
     },
   },
@@ -104,6 +106,7 @@ export default {
         const response = await this.$api.post(`/${pecha}/${text}/${pageId}`, {
           content: this.currentPageContent,
         });
+        this.saveStatus = "saved";
       } catch (error) {
         console.error(error);
       }
