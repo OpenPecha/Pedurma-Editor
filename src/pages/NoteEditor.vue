@@ -1,10 +1,14 @@
 <template>
-  <q-page v-if="currentPage" padding class="row q-gutter-md">
+  <q-page
+    v-if="currentPageContent && currentPageImageUrl"
+    padding
+    class="row q-gutter-md"
+  >
     <div class="col">
       <q-card id="imageCard">
         <ImageViewer
           class="col"
-          :src="currentPage.image_url"
+          :src="currentPageImageUrl"
           :resize="true"
           alt="page image"
         />
@@ -27,6 +31,7 @@
 </template>
 
 <script>
+import { debounce } from "quasar";
 import ImageViewer from "components/ImageViewer.vue";
 
 export default {
@@ -40,7 +45,8 @@ export default {
     return {
       pages: null,
       currentPageNum: 1,
-      currentPage: null,
+      currentPageContent: null,
+      currentPageImageUrl: null,
     };
   },
 
@@ -48,16 +54,9 @@ export default {
     currentPageNum() {
       this.fetchPage(this.pages[this.currentPageNum - 1]);
     },
-  },
 
-  computed: {
-    currentPageContent: {
-      get: function () {
-        return this.currentPage.content;
-      },
-      set: function (newValue) {
-        this.currentPage.content = newValue;
-      },
+    currentPageContent() {
+      this.debouncedSaveCurrentPage();
     },
   },
 
@@ -67,11 +66,30 @@ export default {
         this.$q.loading.show();
         const { pecha, text } = this.$route.params;
         const response = await this.$api.get(`/${pecha}/${text}/${page_id}`);
-        this.currentPage = await response.data;
+        const page = await response.data;
+        this.currentPageImageUrl = page.image_url;
+        this.currentPageContent = page.content;
       } catch (error) {
         console.error(error);
       } finally {
         this.$q.loading.hide();
+      }
+    },
+
+    debouncedSaveCurrentPage: debounce(function () {
+      this.saveCurrentPage();
+      console.log(this.currentPageContent);
+    }, 1000),
+
+    async saveCurrentPage() {
+      const pageId = this.pages[this.currentPageNum - 1];
+      try {
+        const { pecha, text } = this.$route.params;
+        const response = await this.$api.post(`/${pecha}/${text}/${pageId}`, {
+          content: this.currentPageContent,
+        });
+      } catch (error) {
+        console.error(error);
       }
     },
   },
