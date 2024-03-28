@@ -63,9 +63,16 @@ export default {
 
   methods: {
     async fetchPage(page_id) {
-      const { pecha, text } = this.$route.params;
-      const response = await this.$api.get(`/${pecha}/${text}/${page_id}`);
-      this.currentPage = await response.data;
+      try {
+        this.$q.loading.show();
+        const { pecha, text } = this.$route.params;
+        const response = await this.$api.get(`/${pecha}/${text}/${page_id}`);
+        this.currentPage = await response.data;
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.$q.loading.hide();
+      }
     },
   },
 
