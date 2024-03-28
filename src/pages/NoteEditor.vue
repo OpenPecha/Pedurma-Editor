@@ -17,6 +17,9 @@
 
     <q-card class="col" style="height: 88vh">
       <div class="row justify-center bg-grey-1" id="paginationContainer">
+        <q-badge floating color="secondary">
+          {{ textId }}
+        </q-badge>
         <q-pagination
           v-model="currentPageNum"
           min="1"
@@ -32,7 +35,6 @@
 
 <script>
 import { debounce } from "quasar";
-import { LocalStorage } from "quasar";
 import ImageViewer from "components/ImageViewer.vue";
 
 export default {
@@ -66,6 +68,11 @@ export default {
     lastViewedPageNumKey() {
       const { pecha, text } = this.$route.params;
       return `PE:${pecha}/${text}/lastViewedPageNum`;
+    },
+
+    textId() {
+      const { pecha, text } = this.$route.params;
+      return `${pecha}/${text}`;
     },
   },
 
