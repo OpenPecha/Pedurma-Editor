@@ -42,7 +42,7 @@ module.exports = configure(function (ctx) {
       env: {
         VUE_APP_API_BASE_URL: ctx.dev
           ? "http://0.0.0.0:8000"
-          : "http://0.0.0.0:8000",
+          : "https://pedurma-editor-backend.onrender.com",
       },
       target: {
         browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
