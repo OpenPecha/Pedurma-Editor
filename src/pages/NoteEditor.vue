@@ -61,7 +61,7 @@ export default {
     },
 
     currentPageContent() {
-      this.saveStatus = "saving";
+      if (this.currentPageContent !== null) this.saveStatus = "saving";
       this.debouncedSaveCurrentPage();
     },
   },

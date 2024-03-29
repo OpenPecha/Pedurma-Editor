@@ -9,7 +9,14 @@
           </q-avatar>
           Pedurma Editor
         </q-toolbar-title>
-        {{ textId }}
+        <q-breadcrumbs
+          v-if="textMeta"
+          active-color="white"
+          style="font-size: 16px"
+        >
+          <q-breadcrumbs-el :label="textMeta.pecha" icon="calendar_view_day" />
+          <q-breadcrumbs-el :label="textMeta.textId" icon="import_contacts" />
+        </q-breadcrumbs>
       </q-toolbar>
     </q-header>
 
@@ -20,14 +27,20 @@
 </template>
 
 <script>
+const katenBoEn = {
+  kangyur: "བཀའ་འགྱུར་",
+  tengyur: "བསྟན་འགྱུར",
+};
 export default {
   computed: {
     isIndexPage() {
       return this.$router.currentRoute.value.path === "/";
     },
-    textId() {
-      const { pecha, text } = this.$route.params;
-      return `${pecha}/${text}`;
+    textMeta() {
+      let { pecha, text: textId } = this.$route.params;
+      if (!pecha) return;
+      pecha = katenBoEn[pecha];
+      return { pecha, textId };
     },
   },
 };

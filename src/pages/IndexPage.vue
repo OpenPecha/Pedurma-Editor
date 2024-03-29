@@ -8,9 +8,10 @@
         indicator-color="primary"
         align="justify"
         inline-label
+        dense
       >
-        <q-tab name="kangyur" label="བཀའ་འགྱུར།" icon="book" />
-        <q-tab name="tengyur" label="བསྟན་འགྱུར།" icon="book" />
+        <q-tab name="kangyur" label="བཀའ་འགྱུར།" icon="view_day" />
+        <q-tab name="tengyur" label="བསྟན་འགྱུར།" icon="view_day" />
       </q-tabs>
 
       <q-tab-panels
