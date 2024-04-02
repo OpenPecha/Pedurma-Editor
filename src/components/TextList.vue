@@ -1,7 +1,18 @@
 <template>
   <div>
+    <q-input dense filled v-model="search" label="Search">
+      <template v-slot:append>
+        <q-icon v-if="search === ''" name="search" />
+        <q-icon
+          v-else
+          name="clear"
+          class="cursor-pointer"
+          @click="search = ''"
+        />
+      </template>
+    </q-input>
     <q-list separator>
-      <q-item v-for="text in texts" :key="text.id">
+      <q-item v-for="text in filteredTexts" :key="text.id">
         <q-item-section avatar>
           <q-badge color="secondary">
             {{ text.id }}
@@ -9,7 +20,7 @@
         </q-item-section>
         <q-item-section> {{ text.title }}</q-item-section>
         <q-item-section side>
-          <q-btn-dropdown dense outline color="primary" icon="edit">
+          <q-btn-dropdown size="10px" flat ripple color="primary" icon="edit">
             <q-list dense>
               <q-item disable v-close-popup :to="`/${pecha}/${text.id}/text`">
                 <q-item-section>
@@ -37,8 +48,20 @@ export default {
 
   data() {
     return {
+      search: "",
       texts: [],
     };
+  },
+
+  computed: {
+    filteredTexts() {
+      return this.texts.filter((text) => {
+        return (
+          text.id.toLowerCase().includes(this.search.toLowerCase()) ||
+          text.title.includes(this.search)
+        );
+      });
+    },
   },
 
   async created() {
