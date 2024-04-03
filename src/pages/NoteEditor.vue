@@ -6,12 +6,7 @@
   >
     <div class="col">
       <q-card id="imageCard">
-        <ImageViewer
-          class="col"
-          :src="currentPageImageUrl"
-          :resize="true"
-          alt="page image"
-        />
+        <ImageViewer class="col" :src="currentPageImageUrl" alt="page image" />
       </q-card>
     </div>
 

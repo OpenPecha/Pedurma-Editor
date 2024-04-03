@@ -1,18 +1,11 @@
 <template>
-  <inner-image-zoom v-if="!error" :src="srcSmall" :zoomSrc="src" />
+  <inner-image-zoom v-if="!error" :src="src" :zoomSrc="src" />
 
   <div v-else class="column items-center">
     <q-icon name="error" size="xl" class="text-grey" />
     <div class="text-grey q-mt-md">
-      <div class="text-h5 text-center">To view the image</div>
-      <ol>
-        <li>
-          Login into
-          <a href="https://library.bdrc.io" target="_blank">BDRC library</a>
-          with an authorized account
-        </li>
-        <li>Reload the page</li>
-      </ol>
+      <div class="text-h5 text-center">Failed to load the image</div>
+      <div class="text-center text-light">Please reload the page</div>
     </div>
   </div>
 </template>
@@ -26,10 +19,6 @@ export default {
     src: {
       type: String,
       required: true,
-    },
-    resize: {
-      type: Boolean,
-      default: true,
     },
   },
 
@@ -53,12 +42,12 @@ export default {
     },
   },
 
-  mounted() {
-    const img = document.querySelector(".iiz__img");
-    img.addEventListener("error", (err) => {
-      this.error = true;
-    });
-  },
+  // mounted() {
+  //   const img = document.querySelector(".iiz__img");
+  //   img.addEventListener("error", (err) => {
+  //     this.error = true;
+  //   });
+  // },
 };
 </script>
 
