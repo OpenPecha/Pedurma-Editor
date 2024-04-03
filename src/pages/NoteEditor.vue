@@ -142,7 +142,7 @@ export default {
 textarea {
   width: 100%;
   height: 960px;
-  padding: 4px;
+  padding: 4px 8px;
   font-size: 1.1rem;
   line-height: 1.5;
   overflow: auto;
