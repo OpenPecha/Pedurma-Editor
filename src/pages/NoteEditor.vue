@@ -2,15 +2,15 @@
   <q-page
     v-if="currentPageContent && currentPageImageUrl"
     padding
-    class="row q-gutter-md"
+    class="row items-center q-gutter-md"
   >
     <div class="col">
       <q-card id="imageCard">
-        <ImageViewer class="col" :src="currentPageImageUrl" alt="page image" />
+        <img :src="currentPageImageUrl" alt="pedurma page image" />
       </q-card>
     </div>
 
-    <q-card class="col" style="height: 88vh">
+    <q-card class="col" style="height: 1000px">
       <div class="row justify-center bg-grey-1" id="paginationContainer">
         <SaveStatus :status="saveStatus" />
         <q-pagination
@@ -28,14 +28,12 @@
 
 <script>
 import { debounce } from "quasar";
-import ImageViewer from "components/ImageViewer.vue";
 import SaveStatus from "components/SaveStatus.vue";
 
 export default {
   name: "NoteEditor",
 
   components: {
-    ImageViewer,
     SaveStatus,
   },
 
@@ -130,21 +128,23 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 #imageCard {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 88vh;
-  overflow: auto;
+  height: 1000px;
+
+  img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 textarea {
   width: 100%;
-  height: 83vh;
+  height: 960px;
   padding: 4px;
-  font-size: 1.2rem;
-  line-height: 2;
+  font-size: 1.1rem;
+  line-height: 1.5;
   overflow: auto;
 
   border: 1px solid #d7d7d7;
